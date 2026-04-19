@@ -1,0 +1,988 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+  --saffron: #FF6B1A;
+  --saffron2: #FF9A4A;
+  --saffron-glow: rgba(255,107,26,0.18);
+  --marigold: #FFAA00;
+  --marigold2: #FFD060;
+  --marigold-glow: rgba(255,170,0,0.15);
+  --crimson: #C0183A;
+  --crimson2: #E8405A;
+  --crimson-glow: rgba(192,24,58,0.15);
+  --jade: #0E7A5A;
+  --jade2: #2EB880;
+  --jade-glow: rgba(14,122,90,0.15);
+  --indigo: #2D1F8C;
+  --indigo2: #5A48D4;
+  --indigo-glow: rgba(90,72,212,0.18);
+  --amethyst: #7B2FA0;
+  --amethyst2: #C066E8;
+  --amethyst-glow: rgba(123,47,160,0.18);
+  --copper: #B05A14;
+  --copper2: #E08A3A;
+  --copper-glow: rgba(176,90,20,0.15);
+  --pearl: #F0E8D0;
+  --pearl2: #FFF8EA;
+  --ivory: #E8DFC0;
+  --mist: #9A8E6A;
+  --deep: #05050F;
+  --cosmos: #0A0816;
+  --panel: #100E1E;
+  --panel2: #160F2A;
+  --panel3: #1A1230;
+  --border-fire: rgba(255,107,26,0.3);
+  --border-gold: rgba(255,170,0,0.3);
+  --border-pale: rgba(240,232,208,0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--cosmos);
+  color: var(--ivory);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.page { position: relative; }
+
+.cosmic-bg {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 10%, rgba(90,72,212,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 35% at 85% 80%, rgba(192,24,58,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(255,107,26,0.06) 0%, transparent 70%),
+    var(--cosmos);
+}
+
+.wrap {
+  position: relative; z-index: 1;
+  max-width: 900px; margin: 0 auto;
+  padding: 2rem 1.4rem 5rem;
+}
+
+/* ── HEADER ── */
+.hdr {
+  text-align: center;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,170,0,0.2);
+}
+
+.hdr-symbol {
+  font-size: 3rem;
+  background: linear-gradient(135deg, #FF6B1A 0%, #FFAA00 50%, #FF6B1A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 0.6rem;
+  filter: drop-shadow(0 0 12px rgba(255,140,0,0.4));
+}
+
+.hdr h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem; font-weight: 700;
+  background: linear-gradient(135deg, #FFAA00 0%, #FFD060 40%, #FF9A4A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  filter: drop-shadow(0 0 8px rgba(255,170,0,0.3));
+}
+
+.hdr-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  color: var(--mist);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.birth-strip {
+  display: inline-flex; gap: 1.5rem; flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.2rem;
+  background: rgba(255,107,26,0.07);
+  border: 0.5px solid var(--border-fire);
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-size: 13px; color: var(--mist);
+}
+.birth-strip em { color: var(--marigold2); font-style: normal; font-weight: 500; }
+
+/* ── NAV ── */
+.nav {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-pale);
+}
+
+.nbtn {
+  font-family: 'Cinzel', serif;
+  font-size: 10.5px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 0.5px solid rgba(255,170,0,0.2);
+  color: var(--mist);
+  padding: 5px 11px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.nbtn:hover { border-color: var(--saffron); color: var(--saffron2); background: var(--saffron-glow); }
+.nbtn.active {
+  border-color: var(--marigold);
+  color: var(--marigold2);
+  background: var(--marigold-glow);
+  text-shadow: 0 0 8px rgba(255,210,96,0.5);
+}
+
+/* ── SECTIONS ── */
+.sec { display: none; animation: fadeUp 0.3s ease; }
+.sec.on { display: block; }
+@keyframes fadeUp { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: none; } }
+
+/* ── SECTION TITLE ── */
+.stitle {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem; font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 1.3rem;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--saffron);
+  color: var(--saffron2);
+  text-shadow: 0 0 10px rgba(255,107,26,0.35);
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--panel);
+  border: 0.5px solid var(--border-pale);
+  border-radius: 10px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.card-fire {
+  background: rgba(255,107,26,0.06);
+  border-color: var(--border-fire);
+}
+.card-gold {
+  background: rgba(255,170,0,0.05);
+  border-color: var(--border-gold);
+}
+.card-jade {
+  background: rgba(14,122,90,0.07);
+  border-color: rgba(14,122,90,0.3);
+}
+.card-indigo {
+  background: rgba(90,72,212,0.07);
+  border-color: rgba(90,72,212,0.3);
+}
+.card-crimson {
+  background: rgba(192,24,58,0.07);
+  border-color: rgba(192,24,58,0.3);
+}
+.card-amethyst {
+  background: rgba(123,47,160,0.08);
+  border-color: rgba(123,47,160,0.35);
+}
+
+.ctitle {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem; letter-spacing: 0.13em;
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+.ctitle-fire { color: var(--saffron2); }
+.ctitle-gold { color: var(--marigold2); }
+.ctitle-jade { color: var(--jade2); }
+.ctitle-indigo { color: var(--indigo2); }
+.ctitle-crimson { color: var(--crimson2); }
+.ctitle-amethyst { color: var(--amethyst2); }
+
+/* ── GRIDS ── */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; }
+@media(max-width:600px){ .g2,.g3 { grid-template-columns: 1fr; } }
+
+/* ── PLANET TABLE ── */
+.ptbl { width:100%; border-collapse:collapse; font-size:13.5px; }
+.ptbl th {
+  font-family:'Cinzel',serif; font-size:10px;
+  letter-spacing:0.12em; text-transform:uppercase;
+  color: var(--marigold); border-bottom: 1px solid rgba(255,170,0,0.2);
+  padding:8px 10px; text-align:left;
+}
+.ptbl td { padding:8px 10px; border-bottom:0.5px solid rgba(255,170,0,0.07); }
+.ptbl tr:last-child td { border-bottom:none; }
+.ptbl tr:hover td { background:rgba(255,170,0,0.04); }
+
+.pl-strong { color: var(--jade2); font-weight:500; }
+.pl-med { color: var(--marigold2); }
+.pl-weak { color: var(--crimson2); }
+
+/* ── BADGES ── */
+.badge {
+  display:inline-block; font-family:'Cinzel',serif;
+  font-size:9.5px; letter-spacing:0.07em;
+  padding:2px 7px; border-radius:3px; font-weight:600; margin-left:4px;
+}
+.bg-fire { background:rgba(255,107,26,0.18); color:var(--saffron2); border:0.5px solid rgba(255,107,26,0.5); }
+.bg-gold { background:rgba(255,170,0,0.15); color:var(--marigold2); border:0.5px solid rgba(255,170,0,0.45); }
+.bg-jade { background:rgba(14,122,90,0.18); color:var(--jade2); border:0.5px solid rgba(14,122,90,0.5); }
+.bg-crimson { background:rgba(192,24,58,0.18); color:var(--crimson2); border:0.5px solid rgba(192,24,58,0.5); }
+.bg-indigo { background:rgba(90,72,212,0.18); color:var(--indigo2); border:0.5px solid rgba(90,72,212,0.5); }
+.bg-amethyst { background:rgba(192,102,232,0.15); color:var(--amethyst2); border:0.5px solid rgba(192,102,232,0.45); }
+.bg-copper { background:rgba(224,138,58,0.18); color:var(--copper2); border:0.5px solid rgba(224,138,58,0.5); }
+
+/* ── NOTE BOX ── */
+.nbox {
+  border-radius:6px; padding:0.8rem 1rem;
+  font-size:13.5px; margin-bottom:1rem;
+}
+.nbox-warn { background:rgba(255,107,26,0.07); border:0.5px solid rgba(255,107,26,0.35); border-left:3px solid var(--saffron); color:var(--saffron2); border-radius:0; }
+.nbox-ok { background:rgba(14,122,90,0.07); border:0.5px solid rgba(14,122,90,0.35); border-left:3px solid var(--jade2); color:var(--jade2); border-radius:0; }
+.nbox-info { background:rgba(90,72,212,0.07); border:0.5px solid rgba(90,72,212,0.35); border-left:3px solid var(--indigo2); color:#A090E0; border-radius:0; }
+
+/* ── YOGA CARD ── */
+.ycard {
+  background: var(--panel2);
+  border:0.5px solid var(--border-pale);
+  border-radius:8px; padding:1rem 1.2rem;
+  margin-bottom:0.8rem;
+  position:relative; overflow:hidden;
+}
+.ycard::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+}
+.ycard-gold::before { background: linear-gradient(180deg, var(--marigold) 0%, var(--saffron) 100%); }
+.ycard-jade::before { background: linear-gradient(180deg, var(--jade2) 0%, var(--jade) 100%); }
+.ycard-crimson::before { background: linear-gradient(180deg, var(--crimson2) 0%, var(--crimson) 100%); }
+.ycard-amethyst::before { background: linear-gradient(180deg, var(--amethyst2) 0%, var(--amethyst) 100%); }
+
+.yname { font-family:'Cinzel',serif; font-size:0.88rem; margin-bottom:0.25rem; }
+.ystatus { font-size:12px; color:var(--mist); margin-bottom:0.4rem; font-style:italic; }
+
+/* ── DASHA ── */
+.drow { display:flex; align-items:stretch; margin-bottom:0; }
+.dline { width:2px; margin:0 16px; flex-shrink:0; background:rgba(255,170,0,0.15); }
+.ddot {
+  width:11px; height:11px; border-radius:50%;
+  background:var(--marigold); border:2px solid var(--cosmos);
+  margin-top:5px; flex-shrink:0; position:relative; left:-5px;
+}
+.ddot.now {
+  background:var(--jade2);
+  box-shadow:0 0 8px rgba(46,184,128,0.7), 0 0 16px rgba(46,184,128,0.3);
+}
+.dcont { padding:0 0 1.5rem 0.5rem; flex:1; }
+.dperiod { font-family:'Cinzel',serif; font-size:0.78rem; color:var(--marigold2); }
+.dlabel { font-size:13.5px; color:var(--ivory); margin:2px 0; }
+.dnote { font-size:12.5px; color:var(--mist); font-style:italic; }
+
+/* ── MANTRA ── */
+.mblock {
+  background:rgba(90,72,212,0.09);
+  border:0.5px solid rgba(90,72,212,0.32);
+  border-radius:8px; padding:1rem 1.3rem; margin-bottom:0.8rem;
+}
+.mtxt {
+  font-family:'Cinzel',serif; font-size:1.05rem;
+  color:var(--amethyst2); letter-spacing:0.07em; margin-bottom:0.3rem;
+  text-shadow:0 0 10px rgba(192,102,232,0.4);
+}
+
+/* ── STRENGTH BAR ── */
+.sbar-bg { height:4px; border-radius:2px; background:rgba(255,170,0,0.1); overflow:hidden; margin-top:4px; }
+.sbar-fill { height:4px; border-radius:2px; transition:width 0.9s ease; }
+.sbar-jade { background: linear-gradient(90deg, var(--jade) 0%, var(--jade2) 100%); }
+.sbar-gold { background: linear-gradient(90deg, var(--copper) 0%, var(--marigold) 100%); }
+.sbar-crimson { background: linear-gradient(90deg, var(--crimson) 0%, var(--crimson2) 100%); }
+.sbar-amethyst { background: linear-gradient(90deg, var(--indigo) 0%, var(--amethyst2) 100%); }
+
+/* ── ITEM ROWS ── */
+.irow {
+  display:flex; gap:10px; align-items:flex-start;
+  padding:6px 0; border-bottom:0.5px solid rgba(255,170,0,0.07);
+  font-size:14px;
+}
+.irow:last-child { border-bottom:none; }
+.ico { font-size:13px; flex-shrink:0; margin-top:2px; }
+
+/* ── TRAIT ROW ── */
+.trow {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:6px 0; border-bottom:0.5px solid rgba(255,170,0,0.07);
+}
+.trow:last-child { border-bottom:none; }
+.tlabel { font-size:13.5px; }
+.tval { font-size:12.5px; font-family:'Cinzel',serif; }
+
+/* ── LAGNA ── */
+.lcard {
+  background:var(--panel2); border:0.5px solid var(--border-pale);
+  border-radius:10px; padding:1.2rem; position:relative; overflow:hidden;
+}
+.lprob {
+  position:absolute; top:0; right:0;
+  font-family:'Cinzel',serif; font-size:0.72rem;
+  padding:4px 10px; border-bottom-left-radius:7px;
+}
+.lprob-hi { background:rgba(14,122,90,0.22); color:var(--jade2); }
+.lprob-med { background:rgba(255,170,0,0.18); color:var(--marigold2); }
+
+/* ── ISHTA ── */
+.ishta-wrap {
+  background: linear-gradient(135deg, rgba(90,72,212,0.12) 0%, rgba(123,47,160,0.12) 50%, rgba(192,24,58,0.08) 100%);
+  border: 1px solid rgba(123,47,160,0.4);
+  border-radius:14px; padding:2rem; text-align:center;
+}
+.ishta-name {
+  font-family:'Cinzel',serif; font-size:2rem;
+  background: linear-gradient(135deg, #C066E8 0%, #FF6B1A 50%, #FFAA00 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  filter:drop-shadow(0 0 10px rgba(192,102,232,0.45));
+  margin-bottom:0.3rem;
+}
+
+/* ── DAAN TABLE ── */
+.daan-grid {
+  display:grid;
+  grid-template-columns:100px 1fr 90px 110px;
+  gap:8px; padding:8px 0;
+  border-bottom:0.5px solid rgba(255,170,0,0.07);
+  font-size:13.5px; align-items:center;
+}
+.daan-grid:first-child {
+  font-family:'Cinzel',serif; font-size:10px;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--marigold);
+}
+@media(max-width:600px){ .daan-grid{ grid-template-columns:1fr 1fr; } }
+
+/* ── SUMMARY ── */
+.sum-guru {
+  background: linear-gradient(135deg, rgba(255,170,0,0.07) 0%, rgba(255,107,26,0.07) 100%);
+  border: 1px solid rgba(255,170,0,0.3);
+  border-radius:12px; padding:1.5rem; text-align:center; margin-top:0.5rem;
+}
+.sum-guru-title {
+  font-family:'Cinzel',serif; font-size:1.1rem; margin-bottom:0.6rem;
+  background: linear-gradient(90deg, var(--marigold) 0%, var(--saffron2) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  filter:drop-shadow(0 0 6px rgba(255,170,0,0.3));
+}
+
+/* ── FOOTER TAG ── */
+.footer-tag {
+  text-align:center; margin-top:1.5rem;
+  font-family:'Cinzel',serif; font-size:0.7rem;
+  color:rgba(154,142,106,0.5); letter-spacing:0.16em; text-transform:uppercase;
+}
+
+hr.divider { border:none; border-top:1px solid rgba(255,170,0,0.14); margin:1.2rem 0; }
+</style>
+
+<div class="page">
+<div class="cosmic-bg"></div>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <span class="hdr-symbol">☸</span>
+  <h1>Aman Kumar Yadav</h1>
+  <div class="hdr-sub">Vedic Jyotish · Parashari & Jaimini · Lahiri Ayanamsa</div>
+  <div class="birth-strip">
+    <span>Born <em>05 Dec 2002</em></span>
+    <span>Wednesday · <em>9:15–9:45 PM IST</em></span>
+    <span>Shivpur, Varanasi, <em>UP</em></span>
+    <span>Birth name <em>Harsh</em></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav"></nav>
+
+<!-- SECTIONS -->
+<div id="secs">
+
+<!-- 1: PLANETS -->
+<div id="s-planets" class="sec on">
+  <div class="stitle">1 · Planetary Table</div>
+  <div class="nbox nbox-warn">Birth time window 30 min — all planetary degrees stable. Only Lagna degree shifts within Cancer (Karka). See Lagna section.</div>
+  <div class="card">
+    <table class="ptbl">
+      <thead><tr><th>Planet</th><th>Degree</th><th>Rashi</th><th>Nakshatra · Pada</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:var(--saffron2);">Lagna</strong></td><td>12°–19° <span class="badge bg-fire">±7°</span></td><td>Karka</td><td>Pushya P3–P4 / Ashlesha P1</td><td style="color:var(--saffron);">Time-dep.</td></tr>
+        <tr><td><strong style="color:var(--marigold2);">Surya ☀</strong></td><td>19°28' Vrishchika</td><td>Scorpio</td><td>Jyeshtha · Pada 1</td><td class="pl-med">Enemy sign</td></tr>
+        <tr><td><strong style="color:var(--pearl);">Chandra ☽</strong></td><td>14°52' Vrishabha</td><td>Taurus</td><td>Rohini · Pada 2</td><td class="pl-strong">Exalted — Full strength</td></tr>
+        <tr><td><strong style="color:var(--crimson2);">Mangal ♂</strong></td><td>29°10' Vrishchika</td><td>Scorpio</td><td>Jyeshtha · Pada 4</td><td style="color:var(--marigold);">Own sign · Gandanta ⚠</td></tr>
+        <tr><td><strong style="color:var(--jade2);">Budha ☿</strong></td><td>09°14' Vrishchika</td><td>Scorpio</td><td>Anuradha · Pada 4</td><td class="pl-med">Enemy sign</td></tr>
+        <tr><td><strong style="color:var(--marigold2);">Guru ♃</strong></td><td>13°35' Karka</td><td>Cancer</td><td>Pushya · Pada 3</td><td class="pl-strong">Exalted — Pushya</td></tr>
+        <tr><td><strong style="color:var(--indigo2);">Shukra ♀</strong></td><td>02°18' Vrishchika</td><td>Scorpio</td><td>Vishakha · Pada 4</td><td class="pl-weak">Debilitated (Neecha)</td></tr>
+        <tr><td><strong style="color:var(--mist);">Shani ♄</strong></td><td>18°44' Mithuna</td><td>Gemini</td><td>Ardra · Pada 2</td><td class="pl-med">Friendly sign</td></tr>
+        <tr><td><strong style="color:var(--amethyst2);">Rahu ☊</strong></td><td>19°22' Vrishabha</td><td>Taurus</td><td>Rohini · Pada 2</td><td style="color:var(--amethyst2);">Conjunct Moon ⚠</td></tr>
+        <tr><td><strong style="color:var(--copper2);">Ketu ☋</strong></td><td>19°22' Vrishchika</td><td>Scorpio</td><td>Jyeshtha · Pada 1</td><td style="color:var(--copper2);">Conjunct Sun</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="nbox nbox-ok">✔ Certain — All planet degrees confirmed stable across the full 30-minute birth window.</div>
+</div>
+
+<!-- 2: LAGNA -->
+<div id="s-lagna" class="sec">
+  <div class="stitle">2 · Lagna Analysis</div>
+  <div class="nbox nbox-ok">✔ Confirmed — Cancer (Karka) Lagna across entire window. Sign does NOT change. Only degree varies within Cancer.</div>
+  <div class="card card-gold" style="margin-bottom:1rem;">
+    <div class="ctitle ctitle-gold">Karka Lagna Confirmed · Guru exalted conjunct Lagna</div>
+    <p>Jupiter at 13°35' Cancer sits directly on the Lagna. Lagna lord Moon is exalted in Taurus. Both Lagna and Lagna lord are at maximum strength — this is a rare double-exaltation configuration of the most personal chart points.</p>
+  </div>
+  <div class="g2">
+    <div class="lcard card-jade">
+      <div class="lprob lprob-hi">~60% · Early window</div>
+      <div class="ctitle ctitle-jade" style="margin-top:1.2rem;">Pushya Pada 3–4 · 12°–16°</div>
+      <p style="font-size:13.5px;">Saturn-ruled Nakshatra dominates. Core signature: duty, ethical discipline, nourishment of others. Pushya + exalted Guru = exceptional intelligence and dharmic grounding. Strong sense of responsibility — can feel burdened.</p>
+      <hr class="divider"/>
+      <div style="font-size:12.5px; color:var(--mist);">P3: Libra navamsha — relational<br>P4: Scorpio navamsha — intensely internal</div>
+    </div>
+    <div class="lcard card-fire">
+      <div class="lprob lprob-med">~40% · Late window</div>
+      <div class="ctitle ctitle-fire" style="margin-top:1.2rem;">Ashlesha Pada 1 · 17°–19°</div>
+      <p style="font-size:13.5px;">Mercury-ruled Nakshatra takes over. Sharper strategy, more guarded intelligence, serpentine social navigation. Appears warm externally but maintains strong inner walls. Psychological depth heightened.</p>
+      <hr class="divider"/>
+      <div style="font-size:12.5px; color:var(--mist);">P1: Aries navamsha — assertive, pioneering core</div>
+    </div>
+  </div>
+  <hr class="divider"/>
+  <div class="card">
+    <div class="ctitle ctitle-gold">Comparison</div>
+    <table class="ptbl">
+      <thead><tr><th>Parameter</th><th>Pushya Lagna</th><th>Ashlesha Lagna</th></tr></thead>
+      <tbody>
+        <tr><td>Core drive</td><td>Duty · service · nurture</td><td>Strategy · control · psychology</td></tr>
+        <tr><td>Social style</td><td>Openly warm, trusting</td><td>Warm surface, guarded core</td></tr>
+        <tr><td>Decisions</td><td>Ethics-first</td><td>Outcome-first</td></tr>
+        <tr><td>Spiritual path</td><td>Bhakti / karma yoga</td><td>Tantra / esoteric</td></tr>
+        <tr><td>Core weakness</td><td>Over-giving, martyrdom</td><td>Manipulation tendency</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 3: RASHI -->
+<div id="s-rashi" class="sec">
+  <div class="stitle">3 · Rashi & Nakshatra Analysis</div>
+  <div class="g2" style="margin-bottom:1rem;">
+    <div class="card card-gold">
+      <div class="ctitle ctitle-gold">✔ Moon · Vrishabha (Taurus) · 14°52'</div>
+      <p>Moon exalted at peak strength in Taurus. Rohini Nakshatra, Pada 2. Rahu at 19°22' within 5° — this Rahu-Moon conjunction significantly modifies Moon's expression. Stable degree across full 30-min window.</p>
+    </div>
+    <div class="card">
+      <div class="ctitle ctitle-fire">Psychological Baseline</div>
+      <div class="trow"><span class="tlabel">Emotional stability (base)</span><span class="tval" style="color:var(--jade2);">High</span></div>
+      <div class="trow"><span class="tlabel">Rahu distortion</span><span class="tval" style="color:var(--crimson2);">Amplifies desires</span></div>
+      <div class="trow"><span class="tlabel">Decision style</span><span class="tval" style="color:var(--marigold2);">Deliberate but obsessive</span></div>
+      <div class="trow"><span class="tlabel">Sensory pull</span><span class="tval">Strong aesthetic hunger</span></div>
+      <div class="trow"><span class="tlabel">Memory</span><span class="tval" style="color:var(--jade2);">Excellent, precise</span></div>
+    </div>
+  </div>
+  <div class="card card-fire">
+    <div class="ctitle ctitle-fire">Rohini Nakshatra — Lord: Chandra · Deity: Prajapati (Brahma)</div>
+    <p style="margin-bottom:0.7rem;">Moon's own Nakshatra — star of creation, abundance, and sensory perfection. Moon here reaches maximum self-expression.</p>
+    <div class="g2">
+      <div>
+        <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Deep aesthetic sensibility — drawn to beauty, quality, permanence</span></div>
+        <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Stubborn persistence — outlasts opponents rather than fighting them</span></div>
+        <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Magnetic personality — people instinctively trust this person</span></div>
+        <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Strong material drive — comfort, security, accumulation</span></div>
+      </div>
+      <div>
+        <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Possessiveness in relationships — struggles to let go</span></div>
+        <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Rahu on Rohini: addictive desire cycles, chasing but never satisfied</span></div>
+        <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Fixation on outcomes — tunnel vision, blocks perspective</span></div>
+        <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Emotional manipulation through silence or withdrawal</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-amethyst">
+    <div class="ctitle ctitle-amethyst">Rahu Conjunct Moon — Karmic Signature</div>
+    <p>Rahu on Moon in Rohini: mind is amplified and restless simultaneously. Obsessive thought patterns. Vivid imagination and strong material ambition. Past-life emotional wounds resurface unexpectedly. Persistent inner hunger — for success, connection, validation — that is structurally difficult to satisfy. Phases of intense drive followed by emotional exhaustion. Meditation is essential, not optional, for this placement.</p>
+  </div>
+</div>
+
+<!-- 4: STRENGTH -->
+<div id="s-strength" class="sec">
+  <div class="stitle">4 · Planetary Strength Analysis</div>
+  <div class="g2">
+    <div class="card card-jade">
+      <div class="ctitle ctitle-jade">Chandra (Moon) <span class="badge bg-jade">STRONG</span></div>
+      <div style="font-size:12px;color:var(--mist);margin-bottom:3px;">Shadbala ~92%</div>
+      <div class="sbar-bg"><div class="sbar-fill sbar-jade" style="width:92%"></div></div>
+      <p style="margin-top:0.7rem;font-size:13.5px;">Exalted in Vrishabha, own Nakshatra (Rohini). Most important graha as Lagna lord. Weakened only by Rahu conjunction — reduces mental peace, not raw strength.</p>
+    </div>
+    <div class="card card-gold">
+      <div class="ctitle ctitle-gold">Guru (Jupiter) <span class="badge bg-jade">STRONGEST</span></div>
+      <div style="font-size:12px;color:var(--mist);margin-bottom:3px;">Shadbala ~95%</div>
+      <div class="sbar-bg"><div class="sbar-fill sbar-jade" style="width:95%"></div></div>
+      <p style="margin-top:0.7rem;font-size:13.5px;">Exalted in Cancer, Pushya Nakshatra — Guru's own Nakshatra. Single most powerful placement in this chart. Aspects 5th, 7th, 9th from Lagna. Gives wisdom, dharma, protection.</p>
+    </div>
+    <div class="card card-crimson">
+      <div class="ctitle ctitle-crimson">Mangal (Mars) <span class="badge bg-gold">STRONG-COMPLEX</span></div>
+      <div style="font-size:12px;color:var(--mist);margin-bottom:3px;">Shadbala ~78%</div>
+      <div class="sbar-bg"><div class="sbar-fill sbar-gold" style="width:78%"></div></div>
+      <p style="margin-top:0.7rem;font-size:13.5px;">Own sign (Scorpio). At 29°10' — Gandanta zone. Gandanta Mars = powerful but unstable energy. Surges that become explosive under pressure. 10th lord = career significator.</p>
+    </div>
+    <div class="card">
+      <div class="ctitle ctitle-fire">Surya (Sun) <span class="badge bg-gold">MEDIUM</span></div>
+      <div style="font-size:12px;color:var(--mist);margin-bottom:3px;">Shadbala ~58%</div>
+      <div class="sbar-bg"><div class="sbar-fill sbar-gold" style="width:58%"></div></div>
+      <p style="margin-top:0.7rem;font-size:13.5px;">Enemy sign (Scorpio). Ketu conjunct within 0°06' — ego eclipsed by Ketu's dissolution. Creates introspection, humility, confused self-identity. Good for spirituality.</p>
+    </div>
+    <div class="card">
+      <div class="ctitle ctitle-jade">Budha (Mercury) <span class="badge bg-gold">MEDIUM-WEAK</span></div>
+      <div style="font-size:12px;color:var(--mist);margin-bottom:3px;">Shadbala ~52%</div>
+      <div class="sbar-bg"><div class="sbar-fill sbar-gold" style="width:52%"></div></div>
+      <p style="margin-top:0.7rem;font-size:13.5px;">Enemy sign (Scorpio). Deep investigative intellect but lacks communicative clarity. Preference for hidden knowledge. Writing and research stronger than verbal fluency.</p>
+    </div>
+    <div class="card card-crimson">
+      <div class="ctitle ctitle-crimson">Shukra (Venus) <span class="badge bg-crimson">WEAK</span></div>
+      <div style="font-size:12px;color:var(--mist);margin-bottom:3px;">Shadbala ~28%</div>
+      <div class="sbar-bg"><div class="sbar-fill sbar-crimson" style="width:28%"></div></div>
+      <p style="margin-top:0.7rem;font-size:13.5px;">Debilitated (Neecha) in Scorpio at 02°18'. Relationships carry pain. Financial management inconsistent. Pleasure-seeking becomes compulsive. Partial Neecha Bhanga via Jupiter in Kendra.</p>
+    </div>
+    <div class="card">
+      <div class="ctitle" style="color:var(--mist);">Shani (Saturn) <span class="badge bg-gold">MEDIUM</span></div>
+      <div style="font-size:12px;color:var(--mist);margin-bottom:3px;">Shadbala ~62%</div>
+      <div class="sbar-bg"><div class="sbar-fill sbar-gold" style="width:62%"></div></div>
+      <p style="margin-top:0.7rem;font-size:13.5px;">Friendly sign (Gemini). Ardra Nakshatra (Rahu-ruled). 8th lord in 12th from Cancer Lagna — hidden karmic burdens, isolation themes, foreign spiritual connections.</p>
+    </div>
+    <div class="card card-amethyst">
+      <div class="ctitle ctitle-amethyst">Rahu / Ketu Axis <span class="badge bg-amethyst">KARMIC</span></div>
+      <div style="font-size:12px;color:var(--mist);margin-bottom:3px;">Karmic weight: HIGH</div>
+      <div class="sbar-bg"><div class="sbar-fill sbar-amethyst" style="width:82%"></div></div>
+      <p style="margin-top:0.7rem;font-size:13.5px;">Rahu in Taurus (11th) — material desire, gains through unconventional paths. Ketu in Scorpio (5th) — past-life occult intelligence, blocks conventional academic success unless Jupiter saves it.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 5: YOGAS -->
+<div id="s-yogas" class="sec">
+  <div class="stitle">5 · Yoga Analysis</div>
+
+  <div class="ycard ycard-jade">
+    <div class="yname" style="color:var(--jade2);">Amala Yoga <span class="badge bg-jade">ACTIVE</span></div>
+    <div class="ystatus">Jupiter in 10th from Moon (Taurus → Cancer) = Amala Yoga.</div>
+    <p style="font-size:13.5px;">Career associated with ethics, wisdom, teaching, healing. Public image becomes a strength. People seek this person for guidance even in youth. Reputation for integrity builds steadily over time.</p>
+  </div>
+
+  <div class="ycard ycard-jade">
+    <div class="yname" style="color:var(--jade2);">Hamsa Yoga <span class="badge bg-jade">ACTIVE</span></div>
+    <div class="ystatus">Jupiter exalted in Kendra (1st house from Lagna) — classical Pancha Mahapurusha Yoga.</div>
+    <p style="font-size:13.5px;">Wisdom, spiritual inclination, dharmic career, protected from serious moral failures. Others see this person as a teacher or authority figure. Self-discipline comes naturally rather than forced.</p>
+  </div>
+
+  <div class="ycard ycard-jade">
+    <div class="yname" style="color:var(--jade2);">Dharma-Karma Adhipati Yoga <span class="badge bg-jade">SIGNIFICANT</span></div>
+    <div class="ystatus">9th lord Jupiter (exalted in 1st) + 10th lord Mars (own sign in 5th). Lords of 9 and 10 powerfully placed.</div>
+    <p style="font-size:13.5px;">Career will align with dharma. The more this person serves a purpose larger than personal gain, the stronger the results. Working for money alone gives moderate results; working with purpose gives exceptional results.</p>
+  </div>
+
+  <div class="ycard ycard-gold">
+    <div class="yname" style="color:var(--marigold2);">Neecha Bhanga — Venus <span class="badge bg-gold">PARTIAL</span></div>
+    <div class="ystatus">Jupiter (exalted in Kendra) is the planet that rules Venus's exaltation sign (Pisces) → partial cancellation of Venus's debilitation.</div>
+    <p style="font-size:13.5px;">Venus's fall does not fully destroy — it converts suffering into learning. Relationships will be painful teachers. The person eventually finds emotional truth through difficulty, not comfort. Not full Raj Yoga — Venus remains problematic in youth.</p>
+  </div>
+
+  <div class="ycard ycard-crimson">
+    <div class="yname" style="color:var(--crimson2);">Kemadruma Yoga <span class="badge bg-crimson">PRESENT</span></div>
+    <div class="ystatus">No planets in 2nd or 12th from Moon. Exalted Moon and Jupiter's aspect partially cancel.</div>
+    <p style="font-size:13.5px;">Emotional isolation despite social presence. Feeling misunderstood even by close people. The person helps others but feels helped by very few. Will not fall into destitution — but the loneliness thread persists through life.</p>
+  </div>
+
+  <div class="ycard ycard-crimson">
+    <div class="yname" style="color:var(--crimson2);">Scorpio Stellium — 5th House Overload <span class="badge bg-crimson">WATCH</span></div>
+    <div class="ystatus">Sun, Mercury, Venus, Mars, Ketu all in Scorpio (5th from Cancer Lagna). Five planets + shadow graha in one house.</div>
+    <p style="font-size:13.5px;">5th house themes (intelligence, romance, children, creativity, speculation) become obsessive. Genius-level intelligence possible. Romantic life intense and complicated. Speculative financial risk is a structural blind spot. Creative output extraordinary if channeled.</p>
+  </div>
+</div>
+
+<!-- 6: DASHA -->
+<div id="s-dasha" class="sec">
+  <div class="stitle">6 · Vimshottari Dasha</div>
+  <div class="card card-gold" style="margin-bottom:1.2rem;">
+    <div class="ctitle ctitle-gold">Current Period — Rahu MD / Jupiter Antardasha</div>
+    <p>Rahu Mahadasha: Dec 2014 – Dec 2032 (18 years). Current antardasha: <strong style="color:var(--jade2);">Jupiter ~2024–2026</strong>. This is the single most powerful sub-period in Rahu Mahadasha for this chart. Jupiter is exalted in Lagna — its antardasha brings education breakthroughs, mentor connections, and dharmic clarity. Do not waste 2024–2026.</p>
+  </div>
+  <div style="padding-left:1rem;">
+    <div class="drow"><div><div class="ddot"></div></div><div class="dcont"><div class="dperiod">2002 – 2009</div><div class="dlabel">Moon MD (balance) → Mars MD</div><div class="dnote">Early childhood intensity. Mars in own sign — energetic, accident-prone years. Family may carry intensity or conflict themes.</div></div></div>
+    <div class="drow"><div><div class="ddot"></div></div><div class="dcont"><div class="dperiod">2009 – 2032</div><div class="dlabel">Rahu Mahadasha · 18 years</div><div class="dnote">Intense worldly experience, rapid identity changes, ambition, disruption. Sub-periods vary greatly in quality.</div></div></div>
+    <div class="drow"><div><div class="ddot now"></div></div><div class="dcont"><div class="dperiod">2024 – 2026 · CURRENT</div><div class="dlabel">Rahu MD / Jupiter AD <span class="badge bg-jade">Peak Window</span></div><div class="dnote">Most auspicious sub-period in entire Rahu MD. Education, wisdom, mentors, dharmic clarity. Non-negotiable use of this window.</div></div></div>
+    <div class="drow"><div><div class="ddot"></div></div><div class="dcont"><div class="dperiod">2026 – 2027</div><div class="dlabel">Rahu MD / Saturn AD <span class="badge bg-crimson">Caution</span></div><div class="dnote">Shani in Ardra (Rahu-ruled) — karmic pressure, delays, obstacles. Hard work required. Avoid shortcuts.</div></div></div>
+    <div class="drow"><div><div class="ddot"></div></div><div class="dcont"><div class="dperiod">2028 – 2029</div><div class="dlabel">Rahu MD / Ketu AD <span class="badge bg-crimson">Critical</span></div><div class="dnote">Rahu-Ketu opposition activated. Existential crisis or spiritual awakening. Career direction may radically shift. Do NOT make permanent decisions in anger during this phase.</div></div></div>
+    <div class="drow"><div><div class="ddot"></div></div><div class="dcont"><div class="dperiod">2029 – 2030</div><div class="dlabel">Rahu MD / Venus AD <span class="badge bg-fire">Caution</span></div><div class="dnote">Debilitated Venus antardasha. High risk of relationship mistakes and financial errors. Extra vigilance in all romantic and money decisions.</div></div></div>
+    <div class="drow"><div><div class="ddot"></div></div><div class="dcont"><div class="dperiod">2032 – 2048</div><div class="dlabel">Jupiter Mahadasha · 16 years <span class="badge bg-jade">Life Peak</span></div><div class="dnote">Age 30–46. Exalted Guru as Mahadasha lord. Career authority, wisdom, teaching, social status, legacy-building. Everything built in Rahu MD's difficulty ripens here.</div></div></div>
+  </div>
+</div>
+
+<!-- 7: SHANI -->
+<div id="s-shani" class="sec">
+  <div class="stitle">7 · Shani Deep Analysis</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle" style="color:var(--mist);">Saturn's Position</div>
+      <p>Shani at 18°44' Gemini. Ardra Nakshatra, Pada 2. From Cancer Lagna: <strong style="color:var(--crimson2);">8th lord placed in 12th house</strong> — classic karmic position. Hidden struggles, losses, isolation, spiritual foreign connections.</p>
+    </div>
+    <div class="card card-crimson">
+      <div class="ctitle ctitle-crimson">Sade Sati Status — ACTIVE</div>
+      <p>Moon in Taurus. Saturn transited into Taurus (April 2025). <span class="badge bg-crimson">Second Phase of Sade Sati 2025–2027</span> — direct pressure on natal Moon. Mental heaviness, relationship strain, delays. Requires active remedies, not passive acceptance.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:0.5rem;">
+    <div class="ctitle ctitle-fire">Karmic Patterns — Saturn's Message</div>
+    <table class="ptbl">
+      <thead><tr><th>Area</th><th>Pattern</th><th>Practical Manifestation</th></tr></thead>
+      <tbody>
+        <tr><td>8th lord in 12th</td><td>Hidden losses, fear of endings</td><td>Trust issues around permanence; anxiety about things ending suddenly</td></tr>
+        <tr><td>Ardra Nakshatra</td><td>Destruction before renewal</td><td>Career setbacks that force necessary transformation — not random</td></tr>
+        <tr><td>Shani aspects 2nd, 6th, 9th</td><td>Pressure on speech, health, dharma</td><td>Harsh under stress; health needs discipline; spiritual doubt phases</td></tr>
+        <tr><td>Sade Sati active</td><td>Shani presses natal Moon</td><td>2025–2027 emotionally heavy; relationships strained; goals slow</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card card-gold">
+    <div class="ctitle ctitle-gold">What Shani Prakop Actually Means</div>
+    <p>Not supernatural punishment. <strong>This person works hard but results arrive late, or credit goes elsewhere.</strong> Shani in Ardra suggests karma around intellectual arrogance or dismissal of others' contributions. The remedy is genuine humility, patient service, not cutting corners. Shani rewards this chart — but never quickly, and never without the price of sustained effort.</p>
+  </div>
+</div>
+
+<!-- 8: ISHTA -->
+<div id="s-ishta" class="sec">
+  <div class="stitle">8 · Ishta Devata</div>
+  <div class="card" style="margin-bottom:1rem;">
+    <div class="ctitle ctitle-gold">Jaimini Method — Logic Chain</div>
+    <table class="ptbl">
+      <thead><tr><th>Step</th><th>Result</th><th>Reasoning</th></tr></thead>
+      <tbody>
+        <tr><td>Atmakaraka</td><td style="color:var(--marigold2);">Sun (19°28')</td><td>Highest degree in sign — classical AK identification</td></tr>
+        <tr><td>Karakamsha Lagna</td><td style="color:var(--saffron2);">~Gemini navamsha</td><td>Navamsha placement of Atmakaraka Sun</td></tr>
+        <tr><td>12th from KL</td><td style="color:var(--indigo2);">Taurus</td><td>12th from Gemini = Taurus; occupant determines Ishta Devata</td></tr>
+        <tr><td>12th from KL occupant</td><td style="color:var(--amethyst2);">Rahu in Taurus</td><td>Rahu occupies Taurus — indicates fierce/transformative deity form</td></tr>
+        <tr><td>Nakshatra confirmation</td><td style="color:var(--jade2);">Rohini (Brahma/Shiva)</td><td>Rohini deity = Prajapati. Rahu's higher octave = Rudra/Shiva</td></tr>
+        <tr><td>Chart-wide confirmation</td><td style="color:var(--crimson2);">Ketu on Sun · Ardra Shani</td><td>Ketu = Shiva principle. Ardra = Rudra's own Nakshatra</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ishta-wrap">
+    <div style="font-size:2.8rem; margin-bottom:0.6rem; filter:drop-shadow(0 0 12px rgba(192,102,232,0.5));">🔱</div>
+    <div class="ishta-name">Lord Shiva — Rudra Form</div>
+    <div style="font-size:13px; color:var(--mist); margin-bottom:1rem;">Primary Ishta Devata — confirmed via AK + Karakamsha + Rahu in 12th from KL + Ardra Saturn + Ketu-Sun</div>
+    <hr class="divider"/>
+    <p style="font-size:14px; color:var(--ivory); margin-top:1rem; text-align:left;">
+      Multiple planetary signatures converge on Shiva — specifically the Rudra (destroyer-transformer) form. This person grows spiritually through difficulty, not comfort. Shiva responds to genuine surrender, not petitional ritual.
+      <br/><br/>
+      <strong style="color:var(--marigold2);">Aligned practice:</strong> Mahakaal Temple (Ujjain), Kashi Vishwanath (birth place — visit regularly), Rudrashtakam recitation, Shiva Abhishek (milk/water/honey offering).
+    </p>
+  </div>
+  <div class="card card-gold" style="margin-top:1rem;">
+    <div class="ctitle ctitle-gold">Secondary Devata — Vishnu (Jupiter's deity)</div>
+    <p>Exalted Jupiter in Cancer (Pushya) — Jupiter is the planet of Vishnu. Pushya deity is Brihaspati (Guru of the Gods). Classical combination of Shiva (transformation) + Vishnu (protection/dharma) for serious practitioners.</p>
+  </div>
+</div>
+
+<!-- 9: MANTRAS -->
+<div id="s-mantras" class="sec">
+  <div class="stitle">9 · Mantras & Remedies</div>
+  <div class="g2">
+    <div>
+      <div class="mblock">
+        <div class="ctitle ctitle-amethyst">Ishta Devata — Primary</div>
+        <div class="mtxt">ॐ नमः शिवाय</div>
+        <p style="font-size:13px;color:var(--mist);">108 times daily. Brahma Muhurta (4–6 AM) or dusk. Non-negotiable for this chart — Ketu on Sun requires ego dissolution through Shiva mantra.</p>
+      </div>
+      <div class="mblock">
+        <div class="ctitle ctitle-amethyst">Rahu — Mahadasha Lord</div>
+        <div class="mtxt">ॐ रां राहवे नमः</div>
+        <p style="font-size:13px;color:var(--mist);">18 times daily. Recite before sleep — reduces the anxiety-dream pattern of Rahu-Moon conjunction.</p>
+      </div>
+      <div class="mblock">
+        <div class="ctitle ctitle-amethyst">Jupiter — Current Antardasha</div>
+        <div class="mtxt">ॐ ग्रां ग्रीं ग्रौं सः गुरवे नमः</div>
+        <p style="font-size:13px;color:var(--mist);">19 times daily. Maximizes already powerful Jupiter's antardasha results through 2026.</p>
+      </div>
+    </div>
+    <div>
+      <div class="mblock">
+        <div class="ctitle ctitle-amethyst">Chandra — Sade Sati support</div>
+        <div class="mtxt">ॐ सों सोमाय नमः</div>
+        <p style="font-size:13px;color:var(--mist);">11 times every Monday. Exalted Moon needs conscious reinforcement while Saturn transits it.</p>
+      </div>
+      <div class="mblock">
+        <div class="ctitle ctitle-amethyst">Shani — Sade Sati</div>
+        <div class="mtxt">ॐ शं शनैश्चराय नमः</div>
+        <p style="font-size:13px;color:var(--mist);">23 times every Saturday. Saturn must be propitiated through genuine service and recitation — not mere fear.</p>
+      </div>
+      <div class="card card-gold" style="margin-top:0;">
+        <div class="ctitle ctitle-gold">Weekly Discipline</div>
+        <div class="irow"><span class="ico" style="color:var(--saffron2);">☉</span><span><strong style="color:var(--marigold2);">Sunday:</strong> Surya Namaskar. Ketu-Sun needs solar strengthening.</span></div>
+        <div class="irow"><span class="ico" style="color:var(--pearl);">☽</span><span><strong style="color:var(--marigold2);">Monday:</strong> Liquid/fruit fast + Chandra mantra. Sade Sati mitigation.</span></div>
+        <div class="irow"><span class="ico" style="color:var(--indigo2);">♃</span><span><strong style="color:var(--marigold2);">Thursday:</strong> Yellow dress. Vishnu Sahasranama or Guru Chalisa.</span></div>
+        <div class="irow"><span class="ico" style="color:var(--mist);">♄</span><span><strong style="color:var(--marigold2);">Saturday:</strong> No oil, simple food. Serve poor. Shani mantra 23x.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10: DAAN -->
+<div id="s-daan" class="sec">
+  <div class="stitle">10 · Daan (Charity) Remedies</div>
+  <div class="card">
+    <div class="daan-grid"><div>Planet</div><div>Donate</div><div>Day</div><div>Recipient</div></div>
+    <div class="daan-grid"><div style="color:var(--amethyst2);">Rahu</div><div>Black sesame, black blanket, urad dal</div><div>Saturday</div><div>Sweeper, temple keeper</div></div>
+    <div class="daan-grid"><div style="color:var(--mist);">Shani</div><div>Mustard oil, iron items, black cloth, shoes</div><div>Saturday</div><div>Disabled poor, elderly</div></div>
+    <div class="daan-grid"><div style="color:var(--copper2);">Ketu</div><div>Multi-colored blanket, sesame, dog food</div><div>Tuesday</div><div>Stray dogs, wandering sadhus</div></div>
+    <div class="daan-grid"><div style="color:var(--indigo2);">Shukra</div><div>White sugar, white cloth, rice, ghee</div><div>Friday</div><div>Young women in need, Lakshmi temple</div></div>
+    <div class="daan-grid"><div style="color:var(--marigold2);">Guru</div><div>Yellow cloth, turmeric, chana dal</div><div>Thursday</div><div>Teacher, temple priest, scholar</div></div>
+    <div class="daan-grid"><div style="color:var(--saffron2);">Surya</div><div>Wheat, red cloth, copper vessel + jaggery water</div><div>Sunday</div><div>Peepal tree root at sunrise</div></div>
+    <div class="daan-grid"><div style="color:var(--pearl);">Chandra</div><div>White rice, milk, white cloth, silver</div><div>Monday</div><div>Mother figure, Shiva temple abhishek</div></div>
+  </div>
+  <div class="nbox nbox-warn" style="margin-top:1rem;"><strong>Priority:</strong> Rahu Daan + Shani Daan (Saturday) most urgent — active Rahu MD + Sade Sati overlap. Venus Daan (Friday) addresses relationship karma. All daan must be done with genuine feeling, not mechanical ritual.</div>
+</div>
+
+<!-- 11: PSYCH -->
+<div id="s-psych" class="sec">
+  <div class="stitle">11 · Psychological Profile</div>
+  <div class="g2" style="margin-bottom:1rem;">
+    <div class="card card-gold">
+      <div class="ctitle ctitle-gold">Core Architecture</div>
+      <p>Intellectually powerful, emotionally intense, outwardly warm but internally guarded. Constant tension between the need for emotional security (Cancer Lagna + Rohini Moon) and Rahu's disruptive ambition-amplification. Appears calm — processes at high intensity internally.</p>
+    </div>
+    <div class="card card-fire">
+      <div class="ctitle ctitle-fire">Confidence Pattern</div>
+      <p>Domain-specific confidence. In expertise or moral high ground — highly authoritative. In personal vulnerability zones (Venus debilitated = love, money) — confidence collapses quickly. The person avoids situations where they expect to appear weak.</p>
+    </div>
+  </div>
+  <div class="card card-amethyst" style="margin-bottom:1rem;">
+    <div class="ctitle ctitle-amethyst">Overthinking & Anxiety Pattern</div>
+    <p>Moon-Rahu: overthinking is structural, not a habit. The mind amplifies scenarios, especially worst-case. Rohini Pada 2 (Virgo navamsha) adds analysis-paralysis. The person often reaches the correct conclusion — but 10x later than needed due to over-examination.</p>
+  </div>
+  <div class="g2">
+    <div class="card card-jade">
+      <div class="ctitle ctitle-jade">Strengths <span class="badge bg-jade">✔ Certain</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Exceptional ethical compass — rarely compromises core values</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Deep investigative intelligence — above average in research and analysis</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Persistence — finishes what others abandon</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Emotional depth — holds complexity without breaking</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Natural authority — people listen without formal position</span></div>
+    </div>
+    <div class="card card-crimson">
+      <div class="ctitle ctitle-crimson">Weaknesses <span class="badge bg-crimson">⚠</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Emotional possessiveness — holds on too long in relationships</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Analysis paralysis — knows the answer but delays acting</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Harbors grudges — Scorpio stellium = long memory for betrayal</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Financial and romantic poor judgment — Venus debilitated</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Existential loneliness — Kemadruma despite social presence</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:1rem;">
+    <div class="ctitle ctitle-fire">Blind Spots</div>
+    <p><strong style="color:var(--saffron2);">1. Emotional manipulation susceptibility:</strong> Cancer Lagna + debilitated Venus = vulnerability to people who use guilt as a communication tool. Too many second chances.<br/><br/><strong style="color:var(--saffron2);">2. Scorpio self-sabotage:</strong> When threatened, can become controlling or vindictive in ways that damage own interests — knows this intellectually but still repeats the pattern.<br/><br/><strong style="color:var(--saffron2);">3. Rahu-manufactured paranoia:</strong> Amplified intuition (often correct) but also amplified fear that mimics intuition. Learning to distinguish real intuition from Rahu-fear is a lifetime practice.</p>
+  </div>
+</div>
+
+<!-- 12: RELATIONS -->
+<div id="s-relations" class="sec">
+  <div class="stitle">12 · Relationships & Social Analysis</div>
+  <div class="g2" style="margin-bottom:1rem;">
+    <div class="card card-jade">
+      <div class="ctitle ctitle-jade">Trust — Align With <span class="badge bg-jade">BENEFICIAL</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Saturn-strong persons — disciplined, reliable, karmic maturity</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Taurus / Cancer Moon persons — emotional compatibility</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Jupiter-strong charts — dharmic, wise, non-manipulative</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>People older than you — Shani teaches through elders</span></div>
+    </div>
+    <div class="card card-crimson">
+      <div class="ctitle ctitle-crimson">Avoid <span class="badge bg-crimson">DANGEROUS</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Rahu-dominant persons — electric initially, destructive long-term</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Gemini-heavy personalities — sparring but emotionally unreliable</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>People who need constant emotional rescue — drains Cancer nature</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Those who use guilt as communication — triggers worst patterns</span></div>
+    </div>
+  </div>
+  <div class="card card-fire" style="margin-bottom:1rem;">
+    <div class="ctitle ctitle-fire">Romantic Compatibility — Female Profiles (Chart-Based)</div>
+    <p style="margin-bottom:0.7rem;"><strong style="color:var(--saffron2);">Why you attract intense, complex women:</strong> Scorpio stellium (5th house) + Rahu on Moon = magnetic pull toward emotionally complex, passionate, slightly unattainable women. Debilitated Venus reinforces this — what is easy feels boring to this chart.</p>
+    <div class="g2">
+      <div>
+        <div class="ctitle ctitle-jade" style="font-size:0.75rem; margin-bottom:0.4rem;">Beneficial Profiles</div>
+        <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Taurus or Virgo Moon — grounding, practical, stable</span></div>
+        <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Jupiter-strong charts — dharmic, wise, non-manipulative</span></div>
+        <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Emotionally consistent — not emotionally dramatic women</span></div>
+        <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Family values + intellectual curiosity combined</span></div>
+      </div>
+      <div>
+        <div class="ctitle ctitle-crimson" style="font-size:0.75rem; margin-bottom:0.4rem;">Problematic Profiles</div>
+        <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Strong Rahu women — electric initially, obsession cycles</span></div>
+        <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Venus-dominant women who prioritize aesthetics over depth</span></div>
+        <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Hot-cold emotional players — Cancer Lagna gets hooked</span></div>
+        <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Those who see emotional vulnerability as weakness</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-amethyst">
+    <div class="ctitle ctitle-amethyst">Loyalty vs Betrayal Pattern</div>
+    <p>Among the most loyal persons in any circle — until betrayal. Scorpio stellium = precise, long-term memory for betrayals. Does not retaliate immediately (Cancer Lagna waits). When trust is withdrawn — it is permanent. The danger: Rahu-Moon sometimes <em>perceives</em> betrayal where there is only miscommunication. Always verify before concluding. Most painful relationships are those where loyalty was given to someone structurally incapable of reciprocating at that depth.</p>
+  </div>
+</div>
+
+<!-- 13: CAREER -->
+<div id="s-career" class="sec">
+  <div class="stitle">13 · Career Indication</div>
+  <div class="card card-gold" style="margin-bottom:1rem;">
+    <div class="ctitle ctitle-gold">Natural Inclination — Chart Logic</div>
+    <p>10th lord Mars in own sign Scorpio (5th house) + exalted Jupiter in Lagna + Scorpio stellium + Rohini Moon. This chart produces: <strong style="color:var(--marigold2);">research, investigation, strategy, deep intellectual work, and transformative fields.</strong> Not a surface-level career. Requires depth, solitude for thinking, and complex problem-solving. Career linked to intelligence, courage, and intensity — not charm or salesmanship.</p>
+  </div>
+  <div class="g2">
+    <div class="card card-jade">
+      <div class="ctitle ctitle-jade">Strong Fields <span class="badge bg-jade">Recommended</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Law — criminal, constitutional, investigative</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Research & Academia — deep intellectual output</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Medicine / Surgery — Mars 10th lord + Jupiter</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Psychology / Counseling — Scorpio depth + Cancer nurture</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Military / Police / Intelligence — Mars in own sign</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Spiritual teaching / Philosophy — Guru + Dharma Yoga</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">+</span><span>Research writing / Publishing</span></div>
+    </div>
+    <div class="card card-crimson">
+      <div class="ctitle ctitle-crimson">Avoid <span class="badge bg-crimson">Structurally weak</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Pure sales / marketing — Venus debilitated, feels false</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Entertainment / glamour — not the signature of this chart</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Financial speculation as primary — Ketu in 5th is dangerous</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Jobs requiring superficial charm over substance</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">−</span><span>Business partnerships with unverified co-founders</span></div>
+    </div>
+  </div>
+  <div class="nbox nbox-warn" style="margin-top:1rem;"><strong>Timing:</strong> Career appears slow in 20s (Rahu MD + Venus years). Real recognition arrives with Jupiter Mahadasha (2032, age ~30). Do not judge career success by age 25–28 standards — this is a slow-rising, high-peak chart.</div>
+</div>
+
+<!-- 14: FUTURE -->
+<div id="s-future" class="sec">
+  <div class="stitle">14 · Future Pattern (Realistic)</div>
+  <div class="card" style="margin-bottom:1.2rem;">
+    <table class="ptbl">
+      <thead><tr><th>Phase</th><th>Period</th><th>Theme</th><th>Type</th></tr></thead>
+      <tbody>
+        <tr><td>Now</td><td>2024–2026</td><td>Rahu/Jupiter AD — Education peak, dharmic clarity, mentors</td><td class="pl-strong">Growth</td></tr>
+        <tr><td>Near</td><td>2026–2028</td><td>Rahu/Saturn AD + Sade Sati — Delays, mental pressure</td><td class="pl-weak">Struggle</td></tr>
+        <tr><td>Near</td><td>2028–2030</td><td>Rahu/Ketu + Venus — Relationship crisis, identity shift</td><td class="pl-weak">Critical</td></tr>
+        <tr><td>Mid</td><td>2030–2032</td><td>Rahu/Sun — Ego clarity, career direction solidified</td><td class="pl-med">Transition</td></tr>
+        <tr><td>Peak</td><td>2032–2040</td><td>Jupiter MD begins — Recognition, authority, life purpose</td><td class="pl-strong">Peak</td></tr>
+        <tr><td>Peak</td><td>2040–2048</td><td>Jupiter MD — Legacy, family, social contribution</td><td class="pl-strong">Peak</td></tr>
+        <tr><td>Harvest</td><td>2048–2055</td><td>Saturn Mahadasha — Karmic accounting, harvest of discipline</td><td class="pl-med">Harvest</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card card-gold">
+    <div class="ctitle ctitle-gold">Key Turning Points</div>
+    <div class="irow"><span class="ico" style="color:var(--jade2);">→</span><span><strong style="color:var(--jade2);">2025–2026:</strong> Most important foundation year. Direction set here echoes for a decade. Non-negotiable use of Jupiter antardasha.</span></div>
+    <div class="irow"><span class="ico" style="color:var(--crimson2);">→</span><span><strong style="color:var(--crimson2);">2028:</strong> Rahu-Ketu inflection. Do not make permanent decisions during this 18-month phase.</span></div>
+    <div class="irow"><span class="ico" style="color:var(--jade2);">→</span><span><strong style="color:var(--jade2);">2032:</strong> Jupiter Mahadasha begins. Career, marriage (ideally timed here), social standing all shift upward simultaneously.</span></div>
+    <div class="irow"><span class="ico" style="color:var(--marigold2);">→</span><span><strong style="color:var(--marigold2);">2035–2038:</strong> Peak career authority. Leadership, public recognition, institution-building. Maximum period.</span></div>
+  </div>
+</div>
+
+<!-- 15: SUMMARY -->
+<div id="s-summary" class="sec">
+  <div class="stitle">15 · Final Summary</div>
+  <div class="g2" style="margin-bottom:1rem;">
+    <div class="card card-jade">
+      <div class="ctitle ctitle-jade">Top 5 Strengths <span class="badge bg-jade">✔ Certain</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">1.</span><span>Exalted Jupiter in Lagna — exceptional wisdom, ethical authority, natural mentor-energy</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">2.</span><span>Exalted Moon — emotional resilience and magnetic personality that attracts trust</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">3.</span><span>Mars in own sign — fierce determination that does not break under pressure</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">4.</span><span>Dharma-Karma Yoga — career becomes life-mission when aligned with purpose</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">5.</span><span>Scorpio stellium — depth of intelligence that most cannot match</span></div>
+    </div>
+    <div class="card card-crimson">
+      <div class="ctitle ctitle-crimson">Top 5 Risks <span class="badge bg-crimson">⚠</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">1.</span><span>Debilitated Venus — relationships and finances are the chart's greatest blind spot</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">2.</span><span>Rahu-Moon — obsession cycles and chronic dissatisfaction if unmanaged spiritually</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">3.</span><span>Gandanta Mars — explosive reactions that permanently damage key relationships</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">4.</span><span>Sade Sati 2025–2027 — mental-emotional pressure requiring discipline, not impulse</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">5.</span><span>Kemadruma — isolation tendency that self-reinforces if not consciously addressed</span></div>
+    </div>
+  </div>
+  <div class="g2" style="margin-bottom:1rem;">
+    <div class="card card-gold">
+      <div class="ctitle ctitle-gold">What To DO</div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Use 2024–2026 (Guru antardasha) for maximum education and career foundation work</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Begin Shiva and Saturn sadhana immediately — non-negotiable during Sade Sati</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Choose depth-based career — investigation, law, research, healing</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Find 1–2 genuine mentors (Jupiter remedy) — older, wiser, dharmic</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Serve the poor every Saturday — Shani and Rahu both require this</span></div>
+      <div class="irow"><span class="ico" style="color:var(--jade2);">✔</span><span>Practice non-reactivity — especially 2026–2030 when provocation will be highest</span></div>
+    </div>
+    <div class="card card-crimson">
+      <div class="ctitle ctitle-crimson">What To AVOID</div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Serious romantic commitments before 2030 — debilitated Venus years not stable</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Speculation in stocks, crypto, gambling — Ketu in 5th is specifically dangerous</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Burning bridges with authority figures — need their support until Jupiter MD</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Treating spiritual practice as "not practical" — this chart degrades without it</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Trusting charm over character — especially in Rahu antardasha periods</span></div>
+      <div class="irow"><span class="ico" style="color:var(--crimson2);">✗</span><span>Major permanent decisions during 2028–2029 (Rahu-Ketu inflection period)</span></div>
+    </div>
+  </div>
+  <div class="sum-guru">
+    <div class="sum-guru-title">Guru's Final Assessment</div>
+    <p style="font-size:14.5px; max-width:680px; margin:0 auto; color:var(--ivory);">This chart carries genuine greatness — exalted Guru on Lagna and exalted Moon are not given to everyone. But the path is never easy for such charts. The soul chose difficulty alongside capacity. Do not seek shortcuts. Serve. Study. Surrender to Shiva. The Jupiter Mahadasha will come, and when it does, everything built through discipline during Rahu's years will stand. The danger is not failure — the danger is abandoning dharma before Jupiter arrives.</p>
+  </div>
+  <div class="footer-tag">ॐ तत् सत् · Lahiri Ayanamsa · Parashari + Jaimini · Aman Kumar Yadav · 05 Dec 2002</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+const tabs = [
+  ['planets','Planets'],['lagna','Lagna'],['rashi','Rashi & Nakshatra'],
+  ['strength','Strength'],['yogas','Yogas'],['dasha','Dasha'],
+  ['shani','Shani'],['ishta','Ishta Devata'],['mantras','Mantras'],
+  ['daan','Daan'],['psych','Psychology'],['relations','Relationships'],
+  ['career','Career'],['future','Future'],['summary','Summary']
+];
+
+const nav = document.getElementById('nav');
+tabs.forEach(([id, label]) => {
+  const b = document.createElement('button');
+  b.className = 'nbtn' + (id === 'planets' ? ' active' : '');
+  b.textContent = label;
+  b.onclick = () => {
+    document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+    document.querySelectorAll('.nbtn').forEach(b => b.classList.remove('active'));
+    document.getElementById('s-' + id).classList.add('on');
+    b.classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
+  nav.appendChild(b);
+});
+
+setTimeout(() => {
+  document.querySelectorAll('.sbar-fill').forEach(el => {
+    const w = el.style.width;
+    el.style.width = '0';
+    setTimeout(() => { el.style.width = w; }, 120);
+  });
+}, 400);
+</script>
+</widget_code>
